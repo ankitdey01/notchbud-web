@@ -34,20 +34,12 @@ for (const path of ["/llms.txt", "/index.md"]) {
   const r = await check(path, 200, "text/markdown");
   assert.ok((await r.text()).length > 100);
 }
-const spec = await (await check("/openapi.json", 200, "application/json")).json();
-assert.equal(spec.openapi, "3.1.1");
-assert.deepEqual(Object.keys(spec.paths).sort(), ["/api/download", "/api/product"]);
-const product = await (await check("/api/product", 200, "application/json")).json();
-assert.equal(product.name, "notchbud");
-assert.deepEqual(Object.keys(product).sort(), spec.components.schemas.Product.required.sort());
-for (const path of ["/api/product", "/api/download", "/api/missing"]) {
-  const r = await check(path, path === "/api/missing" ? 404 : 405, "application/json", { method: "POST" });
-  const { error } = await r.json();
-  for (const field of ["code", "message", "hint"]) assert.ok(error[field]);
+await check("/openapi.json", 404, "text/markdown", { headers: { Accept: "text/markdown" } });
+if (!process.env.MACHINE_ONLY) {
+  await check("/api/product", 404);
+  const download = await check("/api/download", 307);
+  assert.match(download.headers.get("location"), /^https:\/\/github.com\/ankitdey01\/notchbud\/releases/);
 }
-await check("/api/missing", 404, "application/json");
-const download = await check("/api/download", 307);
-assert.match(download.headers.get("location"), /^https:\/\/github.com\/ankitdey01\/notchbud\/releases/);
 const xml = await (await check("/sitemap.xml", 200, "xml")).text();
 const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
 assert.equal(urls.length, 7);

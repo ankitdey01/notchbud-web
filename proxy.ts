@@ -6,7 +6,7 @@ import { representation } from "@/lib/agent-http";
 const clerk = clerkMiddleware();
 // Keep this list in sync with public pages; tests check the route inventory.
 const pages = new Set(["/", "/docs", "/download", "/pricing", "/support", "/privacy", "/tos", "/sign-in", "/sign-up", "/sso-callback"]);
-const resources = new Set(["/llms.txt", "/index.md", "/openapi.json", "/sitemap.xml", "/robots.txt"]);
+const resources = new Set(["/llms.txt", "/index.md", "/sitemap.xml", "/robots.txt"]);
 
 
 // Required on Vercel (*.vercel.app): Clerk auto-proxies its JS and API
@@ -15,7 +15,7 @@ const resources = new Set(["/llms.txt", "/index.md", "/openapi.json", "/sitemap.
 export default async function proxy(request: NextRequest, event: NextFetchEvent) {
   const path = request.nextUrl.pathname.replace(/\/$/, "") || "/";
   // Discovery resources are public and must not depend on an auth handshake.
-  if (resources.has(path) || path === "/api" || path.startsWith("/api/")) return NextResponse.next();
+  if (resources.has(path)) return NextResponse.next();
   const read = request.method === "GET" || request.method === "HEAD";
   const format = representation(request.headers.get("accept"));
   const internal = /^\/(?:api|trpc|__clerk|_next)(?:\/|$)/.test(path);

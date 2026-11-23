@@ -45,10 +45,7 @@ existing middleware.
 
 - `/llms.txt`: when-to-use guidance and resource links.
 - `/index.md`: readable product overview.
-- `/api/product`: read-only product, requirements and download information.
 - `/api/download`: existing installer redirect, with releases-page fallback.
-- `/openapi.json`: OpenAPI 3.1.1 contract. Unsupported API methods and unknown
-  API paths return JSON errors with a code, message and resolution hint.
 - `/sitemap.xml`, `/robots.txt`: public page discovery. Update sitemap lastmod
   when page content changes; do not regenerate it using the current request time.
 
@@ -66,9 +63,7 @@ Full endpoint checks require the deployment's Clerk environment. Without it,
 `MACHINE_ONLY=1` checks every public machine endpoint; production HTML is still
 checked from build artifacts by `npm test`. Run the full suite against the Vercel
 preview before merging, including a real Google sign-in smoke test. No credentials
-are committed or needed for the public discovery API.
+are committed or needed for the Markdown discovery resources.
 
-The public API cannot operate the desktop app or perform inference. Such an API
-would need a separate authentication/privacy/product design. Search indexing and
-rankings require deployment and search-engine recrawling; submit the sitemap in
+Search indexing and rankings require deployment and search-engine recrawling; submit the sitemap in
 Search Console and rerun the readiness audit after deployment.

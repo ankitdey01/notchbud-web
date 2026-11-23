@@ -3,12 +3,7 @@ export const PRODUCT = {
   name: "notchbud",
   description: "A Windows AI desktop assistant in a dynamic island. Hover the notch to ask questions and read streaming answers without switching windows.",
   operatingSystem: "Windows x64",
-  requirements: ["WebView2", "Your own Groq API key"],
-  features: ["Streaming answers", "Screenshot questions", "Local chat history", "API key protected with Windows DPAPI"],
-  downloadUrl: SITE_URL + "/api/download",
-  docsUrl: SITE_URL + "/docs",
-  sourceUrl: "https://github.com/ankitdey01/notchbud",
-  limitations: "The public website API provides product information only. It cannot read local chats, access API keys, control the desktop app, or generate AI answers.",
+
 };
 export const HOME_MARKDOWN = `# notchbud — Windows AI desktop assistant
 
@@ -35,8 +30,6 @@ The app is free with no trial timer. Groq usage limits and pricing apply separat
 - [Privacy](https://notchbud.vercel.app/privacy)
 - [Terms](https://notchbud.vercel.app/tos)
 - [Source code](https://github.com/ankitdey01/notchbud)
-- [Public product API](https://notchbud.vercel.app/api/product)
-- [OpenAPI specification](https://notchbud.vercel.app/openapi.json)
 - [Agent instructions](https://notchbud.vercel.app/llms.txt)
 `;
 export const LLMS = `# notchbud
@@ -45,15 +38,13 @@ export const LLMS = `# notchbud
 
 ## When to use this
 
-Use notchbud's website to check Windows compatibility, explain installation and key setup, find the installer, or answer questions about local storage and Groq usage. Fetch GET /api/product for structured product information. Request the homepage with Accept: text/markdown for a readable overview.
+Use notchbud's website to check Windows compatibility, explain installation and key setup, find the installer, or answer questions about local storage and Groq usage. Request the homepage with Accept: text/markdown for a readable overview.
 
-This is a read-only discovery API, not a hosted inference or desktop-control API. Do not send prompts, screenshots, credentials, or local chat history to it. Installing software and entering a Groq key are actions for the user on their own device. The website demo uses sample responses.
+Installing software and entering a Groq key are actions for the user on their own device. The website demo uses sample responses.
 
 ## Machine-readable resources
 
 - [Product overview](https://notchbud.vercel.app/index.md): Markdown overview, setup, requirements and privacy.
-- [Product API](https://notchbud.vercel.app/api/product): Public JSON; no authentication required.
-- [OpenAPI](https://notchbud.vercel.app/openapi.json): Endpoint schemas and JSON errors.
 - [Sitemap](https://notchbud.vercel.app/sitemap.xml): Indexable pages.
 
 ## Documentation

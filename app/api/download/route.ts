@@ -9,6 +9,3 @@ export async function GET() {
   const latest = await getLatestRelease();
   redirect(latest?.assetUrl ?? RELEASES_URL);
 }
-
-// Preserve the existing GET redirect and fallback; only unsupported writes change.
-export { methodNotAllowed as POST, methodNotAllowed as PUT, methodNotAllowed as PATCH, methodNotAllowed as DELETE } from "@/lib/agent-http";

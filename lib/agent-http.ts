@@ -17,11 +17,3 @@ export function representation(accept: string | null): "html" | "markdown" | "no
   const html = quality("text/html"), md = quality("text/markdown");
   return md > html ? "markdown" : html > 0 ? "html" : "none";
 }
-export function apiError(status: number, code: string, message: string, hint: string) {
-  return Response.json({ error: { code, message, hint } }, { status });
-}
-export function methodNotAllowed() {
-  const response = apiError(405, "METHOD_NOT_ALLOWED", "This endpoint is read-only.", "Use GET or HEAD. See /openapi.json.");
-  response.headers.set("Allow", "GET, HEAD, OPTIONS");
-  return response;
-}

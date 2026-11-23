@@ -1,8 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync } from "node:fs";
-import { representation, apiError, methodNotAllowed } from "../lib/agent-http.ts";
-import { HOME_MARKDOWN, LLMS, PRODUCT, markdown } from "../lib/agent-content.ts";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { representation } from "../lib/agent-http.ts";
+import { HOME_MARKDOWN, LLMS, markdown } from "../lib/agent-content.ts";
 
 test("Accept quality, specificity, defaults and exclusions", () => {
   for (const [accept, expected] of [
@@ -25,20 +25,11 @@ test("Markdown responses carry body, status and cache variation", async () => {
     assert.ok((await r.text()).length > 500);
   }
 });
-test("JSON errors include codes, messages, hints and method allow-list", async () => {
-  const r = apiError(404, "NOT_FOUND", "Missing endpoint", "See /openapi.json");
-  assert.equal(r.status, 404);
-  assert.deepEqual(await r.json(), { error: { code: "NOT_FOUND", message: "Missing endpoint", hint: "See /openapi.json" } });
-  const method = methodNotAllowed();
-  assert.equal(method.status, 405);
-  assert.equal(method.headers.get("allow"), "GET, HEAD, OPTIONS");
-  assert.ok((await method.json()).error.hint);
-});
-test("Agent guidance is actionable and honest about the API", () => {
+test("Agent guidance points to Markdown and setup documentation", () => {
   assert.match(LLMS, /^# notchbud\n\n> /);
   assert.match(LLMS, /## When to use this/);
-  assert.match(LLMS, /GET \/api\/product/);
-  assert.match(PRODUCT.limitations, /cannot read local chats/);
+  assert.match(LLMS, /Accept: text\/markdown/);
+  assert.doesNotMatch(LLMS + HOME_MARKDOWN, /api\/product|openapi\.json/);
   assert.match(HOME_MARKDOWN, /screenshots are sent to Groq/);
 });
 test("Proxy inventory covers every page and sitemap excludes auth pages", () => {
@@ -53,4 +44,13 @@ test("Proxy inventory covers every page and sitemap excludes auth pages", () => 
   }
   assert.match(sitemap, /xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9"/);
   assert.equal((sitemap.match(/<lastmod>/g) || []).length, 7);
+});
+
+test("Discovery adds no API routes or handlers to the installer endpoint", () => {
+  for (const path of ["app/api/product/route.ts", "app/api/[...path]/route.ts", "app/openapi.json/route.ts"]) {
+    assert.equal(existsSync(path), false);
+  }
+  const download = readFileSync("app/api/download/route.ts", "utf8");
+  assert.match(download, /redirect\(latest\?\.assetUrl \?\? RELEASES_URL\)/);
+  assert.doesNotMatch(download, /methodNotAllowed|POST|PUT|PATCH|DELETE/);
 });

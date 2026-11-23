@@ -34,3 +34,36 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Agent discovery and verification
+
+The homepage supports `Accept: text/markdown` (and normal HTML), with quality
+values and `Vary: Accept`. Unknown page paths return Markdown 404s when requested.
+Keep the page/resource inventory in `proxy.ts` aligned when adding routes.
+Public machine resources bypass Clerk; sign-in and Clerk's own proxy retain their
+existing middleware.
+
+- `/llms.txt`: when-to-use guidance and resource links.
+- `/index.md`: readable product overview.
+- `/api/download`: existing installer redirect, with releases-page fallback.
+- `/sitemap.xml`, `/robots.txt`: public page discovery. Update sitemap lastmod
+  when page content changes; do not regenerate it using the current request time.
+
+Run with Node 22.18+ (native TypeScript stripping) or Node 24:
+
+```sh
+npm run build
+npm test
+npm start -- --hostname 127.0.0.1
+# In another terminal:
+BASE_URL=http://127.0.0.1:3000 npm run test:endpoints
+```
+
+Full endpoint checks require the deployment's Clerk environment. Without it,
+`MACHINE_ONLY=1` checks every public machine endpoint; production HTML is still
+checked from build artifacts by `npm test`. Run the full suite against the Vercel
+preview before merging, including a real Google sign-in smoke test. No credentials
+are committed or needed for the Markdown discovery resources.
+
+Search indexing and rankings require deployment and search-engine recrawling; submit the sitemap in
+Search Console and rerun the readiness audit after deployment.

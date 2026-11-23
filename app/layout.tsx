@@ -8,7 +8,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "the notch with an assistant",
+  title: "notchbud — Windows AI desktop assistant",
+  metadataBase: new URL("https://notchbud.vercel.app"),
+  keywords: ["notchbud", "Windows AI desktop assistant", "dynamic island"],
   description:
     "Hover the notch. Ask. Answers stream inside the island — billed to your own Groq API key. No server, key sealed on your device.",
   icons: {

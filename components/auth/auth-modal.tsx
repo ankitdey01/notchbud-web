@@ -180,7 +180,6 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
             {message}
           </p>
         )}
-        <p className="mt-4 text-[12px] text-slate-500">Secured by Clerk</p>
       </div>
     </div>,
     document.body

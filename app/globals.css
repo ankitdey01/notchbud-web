@@ -1,0 +1,366 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand blue theme - matches the gradient-wave hero (#007AFF + white). */
+  --background: 212 100% 96%;
+  --foreground: 212 100% 13%;
+  --card: 0 0% 100%;
+  --card-foreground: 212 100% 13%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 212 100% 13%;
+  --primary: 212 100% 13%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 212 100% 94%;
+  --secondary-foreground: 212 100% 13%;
+  --muted: 212 40% 94%;
+  --muted-foreground: 215 16% 42%;
+  --accent: 212 100% 70%;
+  --accent-foreground: 212 100% 13%;
+  --border: 212 90% 25% / 0.12;
+  --input: 212 90% 25% / 0.14;
+  --ring: 211 100% 50% / 0.35;
+  --radius: 0.9rem;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Kumo line + tint Ã¢â‚¬â€ single source. Prefer ring-kumo-line over border. */
+  /* Light sky values: brand-950 at 12% / brand-400 at 12%. */
+  --primitive-brand-500: #007aff;
+  --primitive-brand-700: #004fa6;
+  --kumo-line: color-mix(in srgb, var(--primitive-brand-700) 12%, transparent);
+  --kumo-tint: color-mix(in srgb, var(--primitive-brand-500) 12%, transparent);
+
+  /* transitions-polish motion tokens Ã¢â‚¬â€ shared scale (match on usage, not nearest number) */
+  --duration-stagger: 40ms; /* per-item stagger offset */
+  --duration-micro: 80ms; /* tooltip/path delay, shake segment, large stagger */
+  --duration-quick: 150ms; /* modal/dropdown close, text swap, tooltip appear */
+  --duration-fast: 250ms; /* icon swap, dropdown/modal open, tabs sliding, page slide, hover-in */
+  --duration-medium: 350ms; /* panel close, toast close */
+  --duration-slow: 400ms; /* panel open, skeleton content reveal, input clear */
+  --duration-very-slow: 500ms; /* emphasis moments, badge appear, text reveal, success check */
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1); /* surface motion: open/close, slide, resize, hover-in */
+  --ease-in-out: ease-in-out; /* icon swap, text swap, text reveal, skeleton reveal */
+  --ease-out-token: ease-out; /* tooltip open / close */
+  --ease-linear: linear; /* shimmer, skeleton pulse, spinner */
+  --ease-bounce: cubic-bezier(0.34, 1.36, 0.64, 1); /* badge pop open */
+  --ease-bounce-strong: cubic-bezier(0.34, 3.85, 0.64, 1); /* bouncy hover-out */
+  --distance-micro: 4px; /* text swap */
+  --distance-small: 6px; /* error shake (small segment) */
+  --distance-base: 8px; /* page slide */
+  --distance-medium: 12px; /* text reveal */
+  --distance-large: 30px; /* check badge appear */
+  --scale-large: 0.96; /* modal open / close */
+  --scale-medium: 0.97; /* dropdown open */
+  --scale-small: 0.98; /* tooltip open */
+  --scale-tiny: 0.99; /* dropdown close */
+  --blur-small: 2px; /* icon swap, text swap, skeleton reveal */
+  --blur-medium: 3px; /* page slide, text reveal */
+  --blur-large: 8px; /* success check open */
+}
+
+* {
+  border-color: hsl(var(--border));
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: #ffffff;
+  color: #001F40;
+  /* Kumo content-text-size: base content is 14px. Headings opt up to 16px+. */
+  font-size: 14px;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Kumo type: sentence-case headings, no tracking tweaks.
+ * display / h2-tight keep scale + balance only Ã¢â‚¬â€ no letter-spacing. */
+.display {
+  line-height: 0.98;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.h2-tight {
+  line-height: 1.04;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.body-calm {
+  line-height: 1.7;
+}
+
+/* Kumo icon-alignment: optical center for multi-line rows.
+ * Wrap the icon in `h-lh flex items-center` so it aligns to the first line. */
+.h-lh {
+  height: 1lh;
+}
+
+/* Kumo hover-color-transitions: color changes on hover are immediate.
+ * Press only scales (motion-safe). No background/border/color transitions. */
+.pressable {
+  /* No color transition Ã¢â‚¬â€ hovers apply instantly. */
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pressable {
+    transition-property: transform;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+  .pressable:not(:disabled):not(.is-static):active {
+    transform: scale(0.96);
+  }
+}
+
+/* Kumo shadow-borders: ring, never border + drop shadow.
+ * LayerCards use ring-kumo-line + soft shadow, no border class. */
+.island {
+  box-shadow:
+    0 1px 2px 0 rgba(0, 55, 115, 0.1),
+    0 12px 40px -16px rgba(0, 122, 255, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+    0 1px 0 0 rgba(255, 255, 255, 0.7) inset;
+}
+.card-flat {
+  /* Hover tint applies immediately Ã¢â‚¬â€ no color transition per Kumo. */
+}
+@media (hover: hover) {
+  .card-flat:hover {
+    background-color: var(--kumo-tint);
+  }
+}
+
+/*
+ * Reveals stay visible unless scripting is on and motion is allowed.
+ * The hidden state is not a base rule, so a missed animation cannot blank the page.
+ */
+.reveal,
+.stagger > * {
+  transition-property: opacity, transform;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-smooth-out);
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .reveal:not(.is-visible),
+  .stagger:not(.is-visible) > * {
+    opacity: 0;
+    transform: translateY(var(--distance-medium));
+  }
+  .reveal.is-visible,
+  .stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stagger.is-visible > *:nth-child(2) { transition-delay: calc(var(--duration-stagger) * 1); }
+  .stagger.is-visible > *:nth-child(3) { transition-delay: calc(var(--duration-stagger) * 2); }
+  .stagger.is-visible > *:nth-child(4) { transition-delay: calc(var(--duration-stagger) * 3); }
+  .stagger.is-visible > *:nth-child(5) { transition-delay: calc(var(--duration-stagger) * 4); }
+  .stagger.is-visible > *:nth-child(6) { transition-delay: calc(var(--duration-stagger) * 5); }
+  .stagger.is-visible > *:nth-child(7) { transition-delay: calc(var(--duration-stagger) * 6); }
+  .stagger.is-visible > *:nth-child(8) { transition-delay: calc(var(--duration-stagger) * 7); }
+}
+
+/* Translucent chrome Ã¢â‚¬â€ content scrolls under. Sticky chrome always keeps its border. */
+.chrome {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+::selection {
+  background: #CCE3FF;
+  color: #001F40;
+}
+
+@layer components {
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600/50;
+  }
+  /* Icon-swap easing (transitions-dev 09): tokenized, keep as timing-function only. */
+  .swap-ease {
+    transition-timing-function: var(--ease-in-out);
+  }
+
+  /*
+   * Inspiration button Ã¢â‚¬â€ glossy royal-blue pill (Explore Moodboards).
+   * Kumo note: hover color applies immediately (no color transition).
+   * Only the sheen sweep (positional) eases; the lighter-tone layer swaps instantly.
+   */
+  .btn-gloss-blue {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 2px solid #1b4dd8;
+    background: linear-gradient(
+      180deg,
+      #7aadff 0%,
+      #5d99fe 28%,
+      #3d83ff 46%,
+      #357dff 56%,
+      #3074f9 78%,
+      #2c6ef3 100%
+    );
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 -2px 4px 0 rgba(10, 30, 120, 0.22),
+      0 1px 2px 0 rgba(0, 0, 0, 0.45);
+    color: #fff;
+    /* No color transition Ã¢â‚¬â€ Kumo hover-color-transitions. */
+  }
+  /* Lighter-tones layer Ã¢â‚¬â€ swaps instantly on hover / keyboard focus. */
+  .btn-gloss-blue::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      #8ab6ff 0%,
+      #68a5fe 28%,
+      #488dff 46%,
+      #3f87ff 56%,
+      #3a7cf9 78%,
+      #3578f3 100%
+    );
+    opacity: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  /* Sheen sweep Ã¢â‚¬â€ positional glide only (allowed to ease). Above text is intentional:
+     it's translucent white, pointer-events none. */
+  .btn-gloss-blue::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: 0;
+    width: 55%;
+    background: linear-gradient(
+      105deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 42%,
+      rgba(255, 255, 255, 0.38) 50%,
+      rgba(255, 255, 255, 0.2) 58%,
+      transparent 100%
+    );
+    transform: translateX(-220%) skewX(-20deg);
+    transition: transform 600ms ease;
+    pointer-events: none;
+  }
+  .btn-gloss-blue:hover {
+    border-color: #244ed2;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.75),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      inset 0 -2px 4px 0 rgba(10, 30, 120, 0.2),
+      0 2px 10px -4px rgba(80, 140, 255, 0.35),
+      0 1px 2px 0 rgba(0, 0, 0, 0.45);
+    text-shadow: 0 1px 2px rgba(10, 30, 120, 0.35);
+  }
+  .btn-gloss-blue:hover::before {
+    opacity: 1;
+  }
+  .btn-gloss-blue:hover::after {
+    transform: translateX(340%) skewX(-20deg);
+  }
+  .btn-gloss-blue:active {
+    filter: brightness(0.98);
+  }
+  .btn-gloss-blue:active::before {
+    opacity: 0.7;
+  }
+  .btn-gloss-blue:active::after {
+    transform: translateX(340%) skewX(-20deg);
+    transition-duration: 300ms;
+  }
+  .btn-gloss-blue:focus-visible {
+    outline: none;
+    border-color: #244ed2;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.7),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 -2px 4px 0 rgba(10, 30, 120, 0.22),
+      0 0 0 2px #ffffff,
+      0 0 0 4px rgba(0, 122, 255, 0.55);
+  }
+  .btn-gloss-blue:focus-visible::before {
+    opacity: 1;
+  }
+  .btn-gloss-blue:disabled {
+    filter: saturate(0.7) brightness(0.85);
+  }
+  .btn-gloss-blue:disabled::before,
+  .btn-gloss-blue:disabled::after {
+    display: none;
+  }
+}
+
+:root {
+  --dropdown-open-dur: 250ms;
+  --dropdown-close-dur: 150ms;
+  --dropdown-pre-scale: 0.97;
+  --dropdown-closing-scale: 0.99;
+  --dropdown-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* transitions-dev 05-menu-dropdown (verbatim): origin-aware open/close. */
+.t-dropdown {
+  transform-origin: top left;
+  transform: scale(var(--dropdown-pre-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--dropdown-open-dur) var(--dropdown-ease),
+    opacity   var(--dropdown-open-dur) var(--dropdown-ease);
+  will-change: transform, opacity;
+}
+.t-dropdown[data-origin="top-right"]     { transform-origin: top right; }
+.t-dropdown[data-origin="top-center"]    { transform-origin: top center; }
+.t-dropdown[data-origin="bottom-left"]   { transform-origin: bottom left; }
+.t-dropdown[data-origin="bottom-center"] { transform-origin: bottom center; }
+.t-dropdown[data-origin="bottom-right"]  { transform-origin: bottom right; }
+
+.t-dropdown.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.t-dropdown.is-closing {
+  transform: scale(var(--dropdown-closing-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--dropdown-close-dur) var(--dropdown-ease),
+    opacity   var(--dropdown-close-dur) var(--dropdown-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-dropdown { transition: none !important; }
+}
+
+/* Pixel-art images stay crisp when scaled. */
+.pixelated {
+  image-rendering: pixelated;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .animate-caret {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  .btn-gloss-blue::after {
+    display: none;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .chrome { background: #ffffff; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

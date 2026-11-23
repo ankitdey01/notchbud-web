@@ -1,0 +1,70 @@
+export const SITE_URL = "https://notchbud.vercel.app";
+export const PRODUCT = {
+  name: "notchbud",
+  description: "A Windows AI desktop assistant in a dynamic island. Hover the notch to ask questions and read streaming answers without switching windows.",
+  operatingSystem: "Windows x64",
+  requirements: ["WebView2", "Your own Groq API key"],
+  features: ["Streaming answers", "Screenshot questions", "Local chat history", "API key protected with Windows DPAPI"],
+  downloadUrl: SITE_URL + "/api/download",
+  docsUrl: SITE_URL + "/docs",
+  sourceUrl: "https://github.com/ankitdey01/notchbud",
+  limitations: "The public website API provides product information only. It cannot read local chats, access API keys, control the desktop app, or generate AI answers.",
+};
+export const HOME_MARKDOWN = `# notchbud — Windows AI desktop assistant
+
+> The notch with an assistant. Hover, ask, and read streaming answers inside a dynamic island on your Windows desktop.
+
+## How it works
+
+Download the Windows x64 installer, install the app for your user, and paste your own Groq API key in the island. Hover the notch to open it, type a question, and read the answer without switching windows. Screenshot questions let you ask about something on your screen. Move away to collapse the island.
+
+## Requirements and privacy
+
+notchbud uses Windows x64 and WebView2. Mac and Linux versions are not available. The desktop app does not require a notchbud account. You need a Groq account for your API key. Chat history stays on your computer; Windows DPAPI protects the key locally. Prompts and attached screenshots are sent to Groq to generate answers.
+
+## Pricing
+
+The app is free with no trial timer. Groq usage limits and pricing apply separately to your own API key. See the pricing page for current support options.
+
+## Links
+
+- [Download](https://notchbud.vercel.app/download)
+- [Setup documentation](https://notchbud.vercel.app/docs)
+- [Pricing](https://notchbud.vercel.app/pricing)
+- [Support](https://notchbud.vercel.app/support)
+- [Privacy](https://notchbud.vercel.app/privacy)
+- [Terms](https://notchbud.vercel.app/tos)
+- [Source code](https://github.com/ankitdey01/notchbud)
+- [Public product API](https://notchbud.vercel.app/api/product)
+- [OpenAPI specification](https://notchbud.vercel.app/openapi.json)
+- [Agent instructions](https://notchbud.vercel.app/llms.txt)
+`;
+export const LLMS = `# notchbud
+
+> A Windows AI desktop assistant that streams answers in a dynamic island using the user's own Groq API key.
+
+## When to use this
+
+Use notchbud's website to check Windows compatibility, explain installation and key setup, find the installer, or answer questions about local storage and Groq usage. Fetch GET /api/product for structured product information. Request the homepage with Accept: text/markdown for a readable overview.
+
+This is a read-only discovery API, not a hosted inference or desktop-control API. Do not send prompts, screenshots, credentials, or local chat history to it. Installing software and entering a Groq key are actions for the user on their own device. The website demo uses sample responses.
+
+## Machine-readable resources
+
+- [Product overview](https://notchbud.vercel.app/index.md): Markdown overview, setup, requirements and privacy.
+- [Product API](https://notchbud.vercel.app/api/product): Public JSON; no authentication required.
+- [OpenAPI](https://notchbud.vercel.app/openapi.json): Endpoint schemas and JSON errors.
+- [Sitemap](https://notchbud.vercel.app/sitemap.xml): Indexable pages.
+
+## Documentation
+
+- [Setup](https://notchbud.vercel.app/docs): Install and configure your own Groq key.
+- [Download](https://notchbud.vercel.app/download): Installer instructions; GET /api/download redirects to the installer or releases page.
+- [Pricing](https://notchbud.vercel.app/pricing): App and separate Groq usage costs.
+- [Support](https://notchbud.vercel.app/support): Troubleshooting and contact.
+- [Privacy](https://notchbud.vercel.app/privacy): Local key storage and privacy policy.
+- [Terms](https://notchbud.vercel.app/tos): Terms of service.
+`;
+export function markdown(body: string | null, status = 200) {
+  return new Response(body, { status, headers: { "Content-Type": "text/markdown; charset=utf-8", Vary: "Accept", "Cache-Control": "no-store" } });
+}

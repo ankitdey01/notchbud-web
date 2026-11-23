@@ -127,7 +127,7 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
         aria-modal="true"
         aria-label="Sign in to notchbud"
         className={cn(
-          "pressable relative w-[min(400px,100%)] rounded-[20px] bg-white px-6 pb-5 pt-6 text-center shadow-[0_8px_30px_-12px_rgba(0,20,60,0.35)] ring-1 ring-kumo-line transition-transform duration-200",
+          "relative w-[min(400px,100%)] rounded-[20px] bg-white px-6 pb-5 pt-6 text-center shadow-[0_8px_30px_-12px_rgba(0,20,60,0.35)] ring-1 ring-kumo-line transition-transform duration-200",
           open ? "scale-100" : "scale-95"
         )}
       >

@@ -28,7 +28,7 @@ export default function DocsPage() {
         <div className="mt-10 grid gap-6">
           {STEPS.map(([t, b], i) => (
             <div key={t} className="flex gap-4">
-              <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-950/[0.05] font-mono text-[0.9em] text-brand-950 ring-1 ring-kumo-line">
+              <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-500/10 font-mono text-[0.9em] text-brand-700">
                 {i + 1}
               </span>
               <div className="grid gap-1.5">

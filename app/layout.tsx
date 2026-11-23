@@ -38,6 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           headerSubtitle: "text-sm font-normal text-slate-600",
           socialButtonsBlockButton: "h-11 rounded-full text-sm font-medium",
           socialButtonsProviderIcon: "size-4",
+          // Clerk's backdrop top-docks the card; center it instead.
+          modalBackdrop: "items-center",
           // SSO-only modal: the "Don't have an account? Sign up" switch is
           // redundant (Google auto-provisions). Free-plan Clerk branding
           // stays — removing it requires a paid Clerk plan.

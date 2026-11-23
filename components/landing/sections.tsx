@@ -6,9 +6,10 @@ import Link from "next/link";
 import { Download } from "lucide-react";
 import { Orb } from "@yogesharc/thinking-orbs";
 import { Mascot } from "page-mascot";
-import { Show, SignInButton } from "@clerk/nextjs";
+import { Show } from "@clerk/nextjs";
 import { usePathname, useRouter } from "next/navigation";
 import { AccountMenu } from "@/components/auth/account-menu";
+import { AuthModal } from "@/components/auth/auth-modal";
 import { smoothScrollTo } from "@/components/ui/lenis-provider";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,7 @@ const NAV_LINKS = [
 export function SiteNav() {
   const router = useRouter();
   const pathname = usePathname();
+  const [authOpen, setAuthOpen] = React.useState(false);
   const toTop = () => {
     if (pathname !== "/") {
       router.push("/");
@@ -74,11 +76,9 @@ export function SiteNav() {
         {/* Kumo concentric-border-radius: pill container (full) + pill buttons (full) stay concentric. */}
         <div className="flex items-center gap-1 rounded-full bg-white/60 p-1 backdrop-blur">
           <Show when="signed-out">
-            <SignInButton mode="modal">
-              <Button variant="ghost" size="sm" className="h-8 rounded-full px-4 text-brand-950">
-                sign in
-              </Button>
-            </SignInButton>
+            <Button variant="ghost" size="sm" className="h-8 rounded-full px-4 text-brand-950" onClick={() => setAuthOpen(true)}>
+              sign in
+            </Button>
           </Show>
           <Show when="signed-in">
             <span className="grid h-8 place-items-center pl-1 pr-1">
@@ -93,6 +93,7 @@ export function SiteNav() {
           <MobileMenu links={NAV_LINKS} />
         </div>
       </div>
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </header>
   );
 }
@@ -141,7 +142,7 @@ export function IslandMock() {
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pb-14 pt-[108px]">
+    <section className="relative overflow-hidden pb-14 pt-32 sm:pt-[108px]">
       {/* Animated sky/white wave — the site's signature background. */}
       <GradientWave />
       {/* Soft blend from the wave into the page background. */}

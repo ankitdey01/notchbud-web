@@ -21,11 +21,13 @@ export async function getLatestRelease(): Promise<{ tag: string; assetUrl: strin
     const data = await res.json();
     const assets: ReleaseAsset[] = data.assets ?? [];
     const exes = assets.filter((a) => /\.exe$/i.test(a.name));
+    // No unvalidated fallback: if no .exe exists, return null so callers
+    // fall back to the releases page instead of serving a checksum, archive,
+    // or other non-installer asset as the download.
     const asset =
       exes.find((a) => /setup/i.test(a.name)) ??
       exes.find((a) => /notchbud/i.test(a.name)) ??
-      exes[0] ??
-      assets[0];
+      exes[0];
     if (!asset) return null;
     return { tag: data.tag_name ?? "", assetUrl: asset.browser_download_url };
   } catch {

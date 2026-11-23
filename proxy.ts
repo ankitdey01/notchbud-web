@@ -8,6 +8,9 @@ export default clerkMiddleware();
 export const config = {
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Clerk auto-proxy (Vercel hosts): its .js bundles must reach the
+    // middleware too, or the SDK 404s and auth never loads.
+    "/__clerk/(.*)",
     "/(api|trpc)(.*)",
   ],
 };

@@ -17,8 +17,11 @@ export default function SSOCallbackPage() {
           if (destination.startsWith("http")) window.location.href = destination;
           else go(destination);
         }}
-        navigateToSignIn={() => go("/")}
-        navigateToSignUp={() => go("/")}
+        // Incomplete attempts land on the prebuilt continuation interfaces,
+        // which collect remaining factors and missing sign-up information.
+        // (This Clerk version exposes only these callbacks — no URL props.)
+        navigateToSignIn={() => go("/sign-in")}
+        navigateToSignUp={() => go("/sign-up")}
       />
     </main>
   );

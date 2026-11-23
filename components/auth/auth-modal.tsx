@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import { useSignIn } from "@clerk/nextjs";
 import { X } from "lucide-react";
 import { Mascot } from "page-mascot";
@@ -35,18 +36,60 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
   const { signIn, errors, fetchStatus } = useSignIn();
   const [starting, setStarting] = React.useState(false);
   const [failed, setFailed] = React.useState(false);
+  const rootRef = React.useRef<HTMLDivElement>(null);
   const ctaRef = React.useRef<HTMLButtonElement>(null);
   const busy = starting || fetchStatus === "fetching";
+  const onCloseRef = React.useRef(onClose);
+  React.useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+  // Portal target: an ancestor uses backdrop-blur, which would trap fixed
+  // positioning — the dialog mounts on document.body instead.
+  const mounted = React.useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   React.useEffect(() => {
     if (!open) return;
+    const trigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     ctaRef.current?.focus();
+    // Inert everything outside the dialog: it lives in a body-level portal,
+    // so every other body child is background.
+    const background = [...document.body.children].filter((el) => el !== rootRef.current);
+    background.forEach((el) => el.setAttribute("inert", ""));
+    const focusables = () => [
+      ...(rootRef.current?.querySelectorAll<HTMLElement>(
+        'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ) ?? []),
+    ];
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      // Keep Tab and Shift+Tab cycling inside the dialog.
+      const items = focusables();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      background.forEach((el) => el.removeAttribute("inert"));
+      if (trigger && document.contains(trigger)) trigger.focus();
+    };
+  }, [open ]);
 
   const startGoogle = async () => {
     if (!signIn || busy) return;
@@ -67,10 +110,12 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
     ? "google sign-in failed. try again."
     : errors?.global?.[0]?.message;
 
-  return (
-    <div
-      inert={!open ? true : undefined}
-      aria-hidden={!open}
+  return mounted
+    ? createPortal(
+        <div
+          ref={rootRef}
+          inert={!open ? true : undefined}
+          aria-hidden={!open}
       className={cn(
         "fixed inset-0 z-[70] grid place-items-center p-6 transition-opacity duration-200",
         open ? "opacity-100" : "pointer-events-none opacity-0"
@@ -137,6 +182,8 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
         )}
         <p className="mt-4 text-[12px] text-slate-500">Secured by Clerk</p>
       </div>
-    </div>
-  );
+    </div>,
+    document.body
+  )
+    : null;
 }

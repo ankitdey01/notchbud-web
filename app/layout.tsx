@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "An opensourced rust native dynamic island with an assistant inside | notchbud",
+  title: "An opensourced rust native dynamic island | notchbud",
   metadataBase: new URL("https://notchbud.vercel.app"),
   keywords: ["notchbud", "Windows AI desktop assistant", "dynamic island"],
   description:
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "An opensourced rust native dynamic island with an assistant inside | notchbud",
+    title: "An opensourced rust native dynamic island | notchbud",
     description:
       "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free and open source.",
     images: [{ url: "/og.png", width: 1897, height: 1079, alt: "notchbud hero" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "An opensourced rust native dynamic island with an assistant inside | notchbud",
+    title: "An opensourced rust native dynamic island | notchbud",
     description:
       "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free and open source.",
     images: ["/og.png"],

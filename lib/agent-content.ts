@@ -1,7 +1,7 @@
 export const SITE_URL = "https://notchbud.vercel.app";
 export const PRODUCT = {
   name: "notchbud",
-  description: "A Windows AI desktop assistant in a dynamic island. Hover the notch to ask questions and read streaming answers without switching windows.",
+  description: "An opensourced rust native dynamic island with an assistant inside. Hover the notch to ask anything and read streaming answers without leaving your window. Free and open source, billed to your own Groq key.",
   operatingSystem: "Windows x64",
 
 };

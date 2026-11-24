@@ -8,26 +8,26 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "notchbud — Windows AI desktop assistant",
+  title: "An opensourced rust native dynamic island with an assistant inside | notchbud",
   metadataBase: new URL("https://notchbud.vercel.app"),
   keywords: ["notchbud", "Windows AI desktop assistant", "dynamic island"],
   description:
-    "Hover the notch. Ask. Answers stream inside the island — billed to your own Groq API key. No server, key sealed on your device.",
+    "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free, billed to your own Groq key that never leaves your PC.",
   icons: {
     icon: "/logorounded.webp",
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "notchbud — Windows AI desktop assistant",
+    title: "An opensourced rust native dynamic island with an assistant inside | notchbud",
     description:
-      "Hover the notch. Ask. Answers stream inside the island — billed to your own Groq API key.",
+      "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free and open source.",
     images: [{ url: "/og.png", width: 1897, height: 1079, alt: "notchbud hero" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "notchbud — Windows AI desktop assistant",
+    title: "An opensourced rust native dynamic island with an assistant inside | notchbud",
     description:
-      "Hover the notch. Ask. Answers stream inside the island — billed to your own Groq API key.",
+      "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free and open source.",
     images: ["/og.png"],
   },
 };

@@ -17,6 +17,19 @@ export const metadata: Metadata = {
     icon: "/logorounded.webp",
     apple: "/apple-touch-icon.png",
   },
+  openGraph: {
+    title: "notchbud — Windows AI desktop assistant",
+    description:
+      "Hover the notch. Ask. Answers stream inside the island — billed to your own Groq API key.",
+    images: [{ url: "/og.png", width: 1897, height: 1079, alt: "notchbud hero" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "notchbud — Windows AI desktop assistant",
+    description:
+      "Hover the notch. Ask. Answers stream inside the island — billed to your own Groq API key.",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

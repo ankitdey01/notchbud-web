@@ -29,12 +29,12 @@ export function GeminiMark({ className }: { className?: string }) {
 }
 
 export function GroqMark({ className }: { className?: string }) {
-  return <Zap aria-hidden className={className} size={14} strokeWidth={2.5} absoluteStrokeWidth />;
+  return <Zap aria-hidden className={className} size={14} strokeWidth={2} absoluteStrokeWidth />;
 }
 
 export const MODELS = [
-  { name: "groq", Mark: GroqMark, href: "/docs" },
-  { name: "chatgpt", Mark: OpenAIMark, href: "/docs" },
-  { name: "claude", Mark: ClaudeMark, href: "/docs" },
-  { name: "gemini", Mark: GeminiMark, href: "/docs" },
+  { name: "Groq", Mark: GroqMark },
+  { name: "ChatGPT", Mark: OpenAIMark },
+  { name: "Claude", Mark: ClaudeMark },
+  { name: "Gemini", Mark: GeminiMark },
 ] as const;

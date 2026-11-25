@@ -367,19 +367,26 @@ export function DemoSection() {
         </div>
       </Reveal>
       <Reveal delay={150} className="mt-8">
-        <div className="mx-auto flex max-w-[720px] flex-wrap items-center justify-center gap-x-1.5 gap-y-2 text-sm text-slate-600 sm:gap-2">
-          <span className="whitespace-nowrap">works with</span>
-          {MODELS.map((m) => (
+        <div className="mx-auto flex max-w-[760px] flex-col items-center gap-6 text-center">
+          <div className="flex w-full flex-col items-center gap-3 md:flex-row md:justify-center md:gap-6">
+            <ul aria-label="Supported AI providers" role="list" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 text-sm font-medium text-brand-950 sm:gap-x-8">
+              {MODELS.map((m) => (
+                <li key={m.name} className="inline-flex items-center gap-2 whitespace-nowrap">
+                  <m.Mark className="size-3.5 shrink-0" />
+                  {m.name}
+                </li>
+              ))}
+            </ul>
+            <span aria-hidden="true" className="hidden h-5 w-px shrink-0 bg-kumo-line md:block" />
             <Link
-              key={m.name}
-              href={m.href}
-              className="focus-ring pressable inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-sm font-medium text-brand-950 ring-1 ring-kumo-line sm:gap-1.5 sm:px-3"
+              href="/docs"
+              className="focus-ring inline-flex min-h-11 max-w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-brand-950 underline decoration-current decoration-1 underline-offset-4"
             >
-              <m.Mark className="size-3.5" />
-              {m.name}
+              <KeyRound {...ICON} aria-hidden="true" className="shrink-0" />
+              <span>Bring your own API key</span>
+              <ArrowRight {...ICON} aria-hidden="true" className="shrink-0 rtl:rotate-180" />
             </Link>
-          ))}
-          <span className="whitespace-nowrap">or your own api key</span>
+          </div>
         </div>
       </Reveal>
     </section>
@@ -506,7 +513,7 @@ export function JobsSection() {
 
 type WhereCard = {
   top: string;
-  rows: { icon: React.ElementType; title: string; sub: string; time: string; dot?: string }[];
+  rows: { icon: React.ElementType; title: string; sub: string; dot?: string }[];
   status: { label: string; sub: string; tone: string };
   title: string;
   body: string;
@@ -517,9 +524,9 @@ const WHERE: WhereCard[] = [
   {
     top: "/demobackground.webp",
     rows: [
-      { icon: History, title: "Past chats", sub: "Newest first, on this device.", time: "today" },
-      { icon: Camera, title: "Screenshot questions", sub: "Snap it, ask about it.", time: "today" },
-      { icon: LogOut, title: "Tray menu", sub: "Disconnect wipes the key.", time: "settings" },
+      { icon: History, title: "Past chats", sub: "Newest first, on this device." },
+      { icon: Camera, title: "Screenshot questions", sub: "Snap it, ask about it." },
+      { icon: LogOut, title: "Tray menu", sub: "Disconnect wipes the key." },
     ],
     status: { label: "This PC", sub: "Runs while your pc is on", tone: "bg-amber-500" },
     title: "on your computer",
@@ -529,9 +536,9 @@ const WHERE: WhereCard[] = [
   {
     top: "/1000186581.webp",
     rows: [
-      { icon: KeyRound, title: "Groq key", sub: "Pasted once, sealed with DPAP.", time: "gsk-…" },
-      { icon: Zap, title: "Billed by Groq", sub: "No notchbud server in between.", time: "live" },
-      { icon: ShieldCheck, title: "No account", sub: "Nothing to rent, nothing to sync.", time: "free" },
+      { icon: KeyRound, title: "Groq key", sub: "Pasted once, sealed with DPAP." },
+      { icon: Zap, title: "Billed by Groq", sub: "No notchbud server in between." },
+      { icon: ShieldCheck, title: "No account", sub: "Nothing to rent, nothing to sync." },
     ],
     status: { label: "Sealed", sub: "Only Groq ever sees it", tone: "bg-emerald-500" },
     title: "on your own key",
@@ -541,9 +548,9 @@ const WHERE: WhereCard[] = [
   {
     top: "/footerimage.webp",
     rows: [
-      { icon: MousePointer2, title: "Hover to open", sub: "No click, your window keeps focus.", time: "0.2s" },
-      { icon: ArrowUp, title: "Type, press enter", sub: "Answers stream in place.", time: "live" },
-      { icon: MousePointerClick, title: "Move away to stop", sub: "The reply stops with you.", time: "esc" },
+      { icon: MousePointer2, title: "Hover to open", sub: "No click, your window keeps focus." },
+      { icon: ArrowUp, title: "Type, press enter", sub: "Answers stream in place." },
+      { icon: MousePointerClick, title: "Move away to stop", sub: "The reply stops with you." },
     ],
     status: { label: "Your workflow", sub: "On while you work", tone: "bg-amber-500" },
     title: "in your workflow",
@@ -562,13 +569,8 @@ export function WhereSection() {
         </div>
       </Reveal>
       <div className="mt-10 grid gap-4 lg:grid-cols-3">
-        {WHERE.map((c, i) => (
+        {WHERE.map((c) => (
           <div key={c.title} className="relative grid gap-6">
-            {i === 0 && (
-              <span aria-hidden className="pointer-events-none absolute -top-[29px] right-8 z-[1]">
-                <DraggablePet src="/pets/pet-wave-clean.webp" alt="waving notchbud cat" size={48} />
-              </span>
-            )}
             <div className="relative flex min-h-[440px] overflow-hidden rounded-[20px]">
               <Image src={c.top} alt="" fill className="pixelated object-cover" sizes="(max-width:1024px) 100vw, 33vw" />
               <div className="relative z-[2] m-6 flex min-w-0 flex-1 flex-col sm:m-4">
@@ -579,10 +581,7 @@ export function WhereSection() {
                       <r.icon className="size-3.5" {...ICON} />
                     </span>
                     <span className="grid min-w-0 flex-1 grid-cols-[minmax(0,1fr)] gap-0.5">
-                      <span className="flex items-baseline justify-between gap-2">
-                        <span className="truncate text-sm font-semibold text-brand-950">{r.title}</span>
-                        <span className="flex-none text-[12px] text-slate-500">{r.time}</span>
-                      </span>
+                      <span className="truncate text-sm font-semibold text-brand-950">{r.title}</span>
                       <span className="flex items-center justify-between gap-2">
                         <span className="truncate text-sm text-slate-600">{r.sub}</span>
                         {r.dot && <span className={cn("size-2 flex-none rounded-full", r.dot)} />}
@@ -646,7 +645,7 @@ export function PricingSection() {
           },
           {
             top: "/footerimage.webp",
-            name: "premium",
+            name: "supporter",
             desc: "pay once, support the project.",
             price: "$3",
             note: "once. yours forever.",
@@ -658,7 +657,7 @@ export function PricingSection() {
         ].map((p) => (
           <div key={p.name} className="relative rounded-[20px] bg-slate-500/10 p-2">
             {p.cat && <SleepingCat className="-top-[31px]" />}
-            {p.name === "premium" && (
+            {p.name === "supporter" && (
               <span aria-hidden className="pointer-events-none absolute -top-8 right-8">
                 <DraggablePet src="/pets/pet-wave-clean.webp" alt="waving notchbud cat" size={48} />
               </span>
@@ -779,6 +778,7 @@ const FAQS = [
   { q: "Do I need an account?", a: "You don't need a notchbud account to use the desktop app. You do need a Groq account to create your API key." },
   { q: "Where do my chats and API key go?", a: "Chat history stays on your computer, and your API key is protected locally using Windows DPAPI. Your prompts and any attached screenshots are sent to Groq to generate responses." },
   { q: "Which computers does it work on?", a: "notchbud is available for Windows x64 and uses WebView2. The installer runs for your user without requiring admin rights. Mac and Linux versions aren't available yet." },
+  { q: "How much RAM does notchbud use?", a: "notchbud uses about 60 MB of RAM while in use and 15 MB while idle." },
   { q: "Is the preview a real AI chat?", a: "The preview shows how the island feels, with a sample response. Download the app and connect your Groq key for real answers." },
 ];
 
@@ -855,40 +855,33 @@ export function FaqSection() {
 }
 
 /* -------------------------------- final cta ------------------------------- */
-// Beach strip just above the footer, like the inspiration.
+// Crisp pixel-art closing scene with centered content over the sand.
 
 export function FinalCtaSection() {
   return (
-    <section className="relative overflow-hidden">
-      <div aria-hidden className="absolute inset-0">
-        <Image
-          src="/footerimage.webp"
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-      </div>
-      <div className="relative mx-auto max-w-[1200px] px-6 pb-28 pt-24 text-center">
-        <Reveal>
-          <h2 className="h2-tight mx-auto max-w-[14ch] text-[clamp(2.4rem,6vw,4.4rem)] font-semibold text-brand-950">
-            meet your first answer.
+    <section className="relative isolate flex min-h-[520px] items-center bg-[#ffe2ad] py-12 sm:min-h-[480px]" aria-labelledby="final-cta-title">
+      <Image
+        src="/footer-beach-pixel.png"
+        alt=""
+        fill
+        unoptimized
+        className="pixelated -z-10 object-cover object-top"
+        sizes="100vw"
+      />
+      <div className="relative mx-auto grid w-full max-w-[1200px] justify-items-center gap-6 px-6 text-center">
+        <div className="grid justify-items-center gap-1.5">
+          <h2 id="final-cta-title" className="h2-tight text-[clamp(2rem,3.3vw,3rem)] font-semibold text-brand-950">
+            your own island.<br />one hover away.
           </h2>
-        </Reveal>
-        <Reveal delay={100}>
-          <p className="mx-auto mt-4 max-w-[52ch] text-sm leading-relaxed text-brand-950/70">
-            it could be streaming in a minute. free on your own computer.
-          </p>
-        </Reveal>
-        <Reveal delay={150}>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          {/* Same hero buttons — no new styles. */}
-          <HeroPrimaryCta href="/download">download for free</HeroPrimaryCta>
-          <HeroGhostCta href="/pricing" icon={<ArrowRight {...ICON} />}>
-            see pricing
-          </HeroGhostCta>
+        </div>
+        <div className="grid w-full justify-items-center gap-4">
+          <div className="grid w-full max-w-[216px] gap-3 sm:max-w-[444px] sm:grid-cols-2 [&>a]:w-full [&>a]:backdrop-blur-none">
+            <HeroPrimaryCta href="/download">download for free</HeroPrimaryCta>
+            <HeroGhostCta href="/pricing" icon={<ArrowRight {...ICON} />}>
+              see pricing
+            </HeroGhostCta>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

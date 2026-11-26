@@ -15,7 +15,7 @@ export default function SupportPage() {
         </h1>
         {/* Kumo content-text-size: body is 14px. */}
         <p className="body-calm mt-5 text-sm text-slate-600">
-          notchbud uses your own Groq API key. No server; the key is sealed on your device.
+          notchbud uses your own provider — a groq key or a custom endpoint. no server; credentials seal on your device.
           If something breaks, tell us what you saw and what you expected.
         </p>
         {/* Kumo related-text-size: entries sit loose (gap-6),
@@ -23,8 +23,8 @@ export default function SupportPage() {
             plain text like the terms and privacy pages. */}
         <div className="mt-10 grid gap-6">
           {[
-            ["Sign-in fails", "Enter the key again in the island. It must start with gsk_. The key is sealed on your device."],
-            ["No answer streams", "Check your Groq key limits, then hover the notch and ask again."],
+            ["Sign-in fails", "For groq, the key must start with gsk_. For custom, check the api root (no /models or /chat/completions at the end), the exact model id, and the key if your provider needs one. credentials seal on your device."],
+            ["No answer streams", "Check your provider's usage limits, then hover the notch and ask again. custom endpoints must support streamed chat completions."],
             ["Still stuck", "Email hello@ankitdey.dev with your Windows version and app version."],
           ].map(([t, b]) => (
             <div key={t} className="grid gap-1.5">

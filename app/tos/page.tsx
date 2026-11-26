@@ -16,8 +16,8 @@ export default function TosPage() {
         {/* Kumo content-text-size: 14px body. Related paragraphs keep a loose rhythm. */}
         <div className="body-calm mt-5 grid gap-6 text-sm text-slate-600">
           <p>notchbud is a Windows companion that answers inside the notch island.</p>
-          <p>Your Groq API key pays for usage. Groq limits are yours.</p>
-          <p>Your key is sealed on your device. We never see it.</p>
+          <p>Your provider (Groq key or custom endpoint) bills usage. That provider&apos;s limits are yours.</p>
+          <p>Your credentials seal on your device. We never see them.</p>
           <p>Don&apos;t misuse the app. We may update these terms as the app changes.</p>
         </div>
       </section>

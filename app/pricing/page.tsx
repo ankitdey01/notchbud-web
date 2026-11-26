@@ -3,7 +3,7 @@ import { PricingSection } from "@/components/landing/dusk";
 
 export const metadata = {
   title: "Pricing — notchbud",
-  description: "Start free. notchbud runs on your own Groq key.",
+  description: "Start free. notchbud runs on your own provider key.",
 };
 
 export default function PricingPage() {

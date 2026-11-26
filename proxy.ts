@@ -5,7 +5,7 @@ import { representation } from "@/lib/agent-http";
 
 const clerk = clerkMiddleware();
 // Keep this list in sync with public pages; tests check the route inventory.
-const pages = new Set(["/", "/docs", "/download", "/pricing", "/support", "/privacy", "/tos", "/sign-in", "/sign-up", "/sso-callback"]);
+const pages = new Set(["/", "/docs", "/download", "/pricing", "/support", "/privacy", "/tos", "/releases", "/sign-in", "/sign-up", "/sso-callback"]);
 const resources = new Set(["/llms.txt", "/index.md", "/sitemap.xml", "/robots.txt"]);
 
 

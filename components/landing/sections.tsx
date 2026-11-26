@@ -34,6 +34,7 @@ const NAV_LINKS = [
   ["download", "/download"],
   ["docs", "/docs"],
   ["pricing", "/pricing"],
+  ["releases", "/releases"],
 ] as const satisfies MobileMenuLink;
 
 export function SiteNav() {
@@ -133,7 +134,7 @@ export function IslandMock() {
           </p>
         </div>
         <AnswerLine text="Kept the hover physics — swell, pop, collapse." />
-        <AnswerLine text="Billed to your Groq key. No server." />
+        <AnswerLine text="Billed by your own provider. No server." />
         <AnswerLine live text="Sealing the token…" />
       </div>
     </div>

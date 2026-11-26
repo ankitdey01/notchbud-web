@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://notchbud.vercel.app"),
   keywords: ["notchbud", "Windows AI desktop assistant", "dynamic island"],
   description:
-    "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free, billed to your own Groq key that never leaves your PC.",
+    "An opensourced rust native dynamic island with an assistant inside. Your notch finally does something useful: hover it, ask anything, and get answers without leaving your window. Free, billed by your own provider — your key never leaves your PC.",
   icons: {
     icon: "/logorounded.webp",
     apple: "/apple-touch-icon.png",

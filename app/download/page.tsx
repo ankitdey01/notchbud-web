@@ -26,7 +26,7 @@ export default async function DownloadPage() {
     {
       icon: Monitor,
       t: "run the installer",
-      b: "no admin rights needed. free, no account — answers are billed to your own groq key.",
+      b: "no admin rights needed. free, no account — usage is billed by your own provider.",
     },
     {
       icon: ShieldCheck,
@@ -64,6 +64,13 @@ export default async function DownloadPage() {
             see pricing
           </HeroGhostCta>
         </div>
+        <p className="mt-10 text-sm leading-relaxed text-slate-600">
+          looking for an older version? every release lives on the{" "}
+          <a href="/releases" className="focus-ring pressable rounded-md font-medium text-brand-950 underline decoration-current decoration-1 underline-offset-4">
+            releases page
+          </a>
+          , fetched fresh from github.
+        </p>
       </section>
       <Footer />
     </main>

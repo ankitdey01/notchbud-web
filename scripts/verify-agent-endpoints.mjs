@@ -42,7 +42,7 @@ if (!process.env.MACHINE_ONLY) {
 }
 const xml = await (await check("/sitemap.xml", 200, "xml")).text();
 const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1]);
-assert.equal(urls.length, 7);
+assert.equal(urls.length, 8);
 for (const url of process.env.MACHINE_ONLY ? [] : urls) {
   const path = new URL(url).pathname;
   const r = await check(path, 200, "text/html");

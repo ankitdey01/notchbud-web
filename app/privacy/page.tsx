@@ -16,7 +16,8 @@ export default function PrivacyPage() {
         {/* Kumo content-text-size: 14px body. */}
         <div className="body-calm mt-5 grid gap-6 text-sm text-slate-600">
           <p>notchbud runs on your desktop. No server.</p>
-          <p>The island prompts for a Groq API key once. The key is sealed with DPAPI on your device.</p>
+          <p>The island asks for a Groq key or a custom endpoint (api root, optional key, exact model id). Credentials seal with DPAPI on your device.</p>
+          <p>Saved keys never reach the island&apos;s JavaScript. Your prompts and screenshots go only to the provider you configured.</p>
           <p>We don&apos;t collect your prompts or answers.</p>
           <p>Contact hello@ankitdey.dev with privacy questions.</p>
         </div>

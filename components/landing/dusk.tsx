@@ -383,7 +383,7 @@ export function DemoSection() {
               className="focus-ring inline-flex min-h-11 max-w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-brand-950 underline decoration-current decoration-1 underline-offset-4"
             >
               <KeyRound {...ICON} aria-hidden="true" className="shrink-0" />
-              <span>Bring your own API key</span>
+              <span>Bring your own key or endpoint</span>
               <ArrowRight {...ICON} aria-hidden="true" className="shrink-0 rtl:rotate-180" />
             </Link>
           </div>
@@ -402,9 +402,8 @@ export function BigStatement() {
       <Reveal className="mx-auto w-full max-w-[1150px] text-center">
         <p className="text-[clamp(1.9rem,4.6vw,3.6rem)] font-semibold leading-[1.08] text-brand-950">
           <DraggablePet src="/pets/pet-wave-clean.webp" alt="waving notchbud cat" size={52} responsive className="ml-0 mr-1" />
-          hover the notch
-          <DraggablePet src="/pets/pet-happy-clean.webp" alt="happy notchbud cat" size={52} responsive className="ml-0 mr-1" />
-          ask what you need. it answers in place.
+          hover the notch and ask what you need.
+          it answers in place.
           <DraggablePet src="/pets/pet-computer-clean.webp" alt="notchbud cat at a computer" size={52} responsive className="ml-0 mr-1" />
           open sourced and built purely in rust
           <span className="whitespace-nowrap">
@@ -430,7 +429,7 @@ const OURS_TILES: VsTile[] = [
   { icon: MousePointer2, title: "stays where you work", body: "hover the notch, answers stream in place." },
   { icon: Zap, title: "keeps your focus", body: "your window never loses focus." },
   { icon: Camera, title: "screenshot questions", body: "snap anything on screen, ask what it means." },
-  { icon: ShieldCheck, title: "yours, on your disk", body: "chats stay local, billed to your own key." },
+  { icon: ShieldCheck, title: "yours, on your disk", body: "chats stay local, billed by your own provider." },
 ];
 
 function TileGroup({
@@ -536,13 +535,13 @@ const WHERE: WhereCard[] = [
   {
     top: "/1000186581.webp",
     rows: [
-      { icon: KeyRound, title: "Groq key", sub: "Pasted once, sealed with DPAP." },
-      { icon: Zap, title: "Billed by Groq", sub: "No notchbud server in between." },
+      { icon: KeyRound, title: "Groq key or custom endpoint", sub: "Pasted once, sealed with DPAPI." },
+      { icon: Zap, title: "Billed by your provider", sub: "No notchbud server in between." },
       { icon: ShieldCheck, title: "No account", sub: "Nothing to rent, nothing to sync." },
     ],
-    status: { label: "Sealed", sub: "Only Groq ever sees it", tone: "bg-emerald-500" },
-    title: "on your own key",
-    body: "your key pays groq directly. we never see it, we never store it.",
+    status: { label: "Sealed", sub: "Only your provider ever sees it", tone: "bg-emerald-500" },
+    title: "on your own provider",
+    body: "your provider bills usage directly. we never see your key, we never store it.",
     cta: { label: "see the pricing", href: "/pricing" },
   },
   {
@@ -640,7 +639,7 @@ export function PricingSection() {
             cta: "get started",
             href: "/download",
             soon: false,
-            points: ["every feature of the app", "runs on your computer", "answers billed to your groq key", "no account, nothing to sync"],
+            points: ["every feature of the app", "runs on your computer", "answers billed by your own provider", "no account, nothing to sync"],
             cat: true,
           },
           {
@@ -652,7 +651,7 @@ export function PricingSection() {
             cta: "coming soon",
             href: "/download",
             soon: true,
-            points: ["everything in free", "every future update included", "your name in the supporters list", "vote on what ships next"],
+            points: ["everything in free", "web search for all models", "priority support", "vote on what ships next"],
           },
         ].map((p) => (
           <div key={p.name} className="relative rounded-[20px] bg-slate-500/10 p-2">
@@ -738,7 +737,7 @@ export function NativeSection() {
                 { icon: Terminal, title: "rust core", sub: "one native binary. no runtime, no gc, no electron." },
                 { icon: Monitor, title: "system webview", sub: "shares the webview windows already runs. nothing bundled." },
                 { icon: Zap, title: "small and fast", sub: "opt-z, lto, stripped. built small to download fast and run lean." },
-                { icon: ShieldCheck, title: "sealed with dpapi", sub: "windows encrypts your key on your disk." },
+                { icon: ShieldCheck, title: "sealed with dpapi", sub: "windows encrypts your credentials on your disk." },
                 { icon: FileText, title: "public source", sub: "read every line on github. issues and prs welcome." },
               ].map((s) => (
                 <div key={s.title} className="flex items-start gap-3">
@@ -774,12 +773,13 @@ export function NativeSection() {
 /* ----------------------------------- faq ---------------------------------- */
 
 const FAQS = [
-  { q: "Is notchbud really free?", a: "Yes. The app is free, with no trial timer. AI requests use your own Groq API key, so Groq's usage limits and pricing apply separately." },
-  { q: "Do I need an account?", a: "You don't need a notchbud account to use the desktop app. You do need a Groq account to create your API key." },
-  { q: "Where do my chats and API key go?", a: "Chat history stays on your computer, and your API key is protected locally using Windows DPAPI. Your prompts and any attached screenshots are sent to Groq to generate responses." },
+  { q: "Is notchbud really free?", a: "Yes. The app is free, with no trial timer. Model usage is billed or limited by your configured provider, so that provider's own pricing and subscription rules apply." },
+  { q: "Do I need an account?", a: "You don't need a notchbud account to use the desktop app. You need a Groq account for a Groq API key, or any OpenAI-compatible endpoint — including a keyless local server." },
+  { q: "Where do my chats and API key go?", a: "Chat history stays on your computer, and credentials are protected locally using Windows DPAPI. Saved keys never reach the island's JavaScript. Your prompts and any attached screenshots are sent only to the provider you configured." },
+  { q: "What custom endpoints work?", a: "Any OpenAI-compatible API root that streams chat completions. Enter the root (with /v1 when the provider needs it), an optional key, and the exact model ID. Remote URLs must use HTTPS; HTTP works only on localhost. Web search stays Groq-only and screenshot support follows the model you pick." },
   { q: "Which computers does it work on?", a: "notchbud is available for Windows x64 and uses WebView2. The installer runs for your user without requiring admin rights. Mac and Linux versions aren't available yet." },
   { q: "How much RAM does notchbud use?", a: "notchbud uses about 60 MB of RAM while in use and 15 MB while idle." },
-  { q: "Is the preview a real AI chat?", a: "The preview shows how the island feels, with a sample response. Download the app and connect your Groq key for real answers." },
+  { q: "Is the preview a real AI chat?", a: "The preview shows how the island feels, with a sample response. Download the app and connect your provider for real answers." },
 ];
 
 export function FaqSection() {
@@ -890,7 +890,7 @@ export function FinalCtaSection() {
 /* ---------------------------------- footer -------------------------------- */
 
 const FOOT_COLS: { title: string; links: { label: string; href: string }[] }[] = [
-  { title: "product", links: [{ label: "download", href: "/download" }, { label: "pricing", href: "/pricing" }] },
+  { title: "product", links: [{ label: "download", href: "/download" }, { label: "pricing", href: "/pricing" }, { label: "releases", href: "/releases" }] },
   { title: "learn", links: [{ label: "docs", href: "/docs" }, { label: "support", href: "/support" }] },
   { title: "notchbud", links: [{ label: "support", href: "/support" }, { label: "terms", href: "/tos" }, { label: "privacy", href: "/privacy" }] },
   { title: "legal", links: [{ label: "terms", href: "/tos" }, { label: "privacy", href: "/privacy" }, { label: "support", href: "/support" }] },
@@ -929,7 +929,7 @@ export function SiteFooter() {
           </nav>
         </div>
         <p className="mt-10 text-sm text-slate-500">
-          made for windows. answers billed to your own groq key.
+          made for windows. answers billed by your own provider.
         </p>
       </div>
     </footer>

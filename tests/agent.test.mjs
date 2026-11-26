@@ -43,7 +43,7 @@ test("Proxy inventory covers every page and sitemap excludes auth pages", () => 
     if (!["/sign-in", "/sign-up", "/sso-callback"].includes(path)) assert.ok(sitemap.includes(path + "</loc>"), path);
   }
   assert.match(sitemap, /xmlns="http:\/\/www.sitemaps.org\/schemas\/sitemap\/0.9"/);
-  assert.equal((sitemap.match(/<lastmod>/g) || []).length, 7);
+  assert.equal((sitemap.match(/<lastmod>/g) || []).length, 8);
 });
 
 test("Discovery adds no API routes or handlers to the installer endpoint", () => {

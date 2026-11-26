@@ -22,11 +22,11 @@ choice — these blocks are quiet history, not calls to action.
 
 ## Menus
 
-- Floating menus (account dropdown) use the same shared fill:
-  `rounded-[20px] bg-slate-500/10`, no ring, no shadow, `p-2` with
-  `rounded-xl` rows inside.
-- Row hovers stay instant and must read on the fill — `hover:bg-white/70`,
-  not the white-on-white `kumo-tint` which vanishes on tinted surfaces.
+- Floating menus (account dropdown) match the shared fill but stay
+  opaque: `rounded-[20px] bg-slate-100`, no ring, no shadow, `p-2` with
+  `rounded-xl` rows inside. Translucent fills wash out over colored
+  backdrops; `slate-100` is the solid companion of `slate-500/10`.
+- Row hovers stay instant and must read on the fill — `hover:bg-white`.
 
 ## Inside a block
 

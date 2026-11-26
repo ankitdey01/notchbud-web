@@ -59,6 +59,12 @@ export async function getLatestRelease(): Promise<{ tag: string; assetUrl: strin
 // Any future tag not listed here falls back to cleaned-up commit subjects
 // fetched from the compare API, so the page stays useful without edits.
 const CURATED_CHANGES: Record<string, string[]> = {
+  "v0.1.7": [
+    "connect a custom openai-compatible endpoint, not just groq — stepped setup with model discovery",
+    "keyless local servers work; remote urls need https, http stays localhost-only",
+    "switching providers keeps your chat; keys never reach the island's javascript",
+    "auto-updates now prefer the versioned installer asset",
+  ],
   "v0.1.6": [
     "the webview now sleeps after 5 idle seconds and wakes on hover, so idle memory stays low",
     "replies keep running while you browse the island, with a notification when a hidden reply finishes",

@@ -20,6 +20,14 @@ choice — these blocks are quiet history, not calls to action.
 - If the pricing fill ever changes, the release blocks change with it.
   One fill, every quiet surface.
 
+## Menus
+
+- Floating menus (account dropdown) use the same shared fill:
+  `rounded-[20px] bg-slate-500/10`, no ring, no shadow, `p-2` with
+  `rounded-xl` rows inside.
+- Row hovers stay instant and must read on the fill — `hover:bg-white/70`,
+  not the white-on-white `kumo-tint` which vanishes on tinted surfaces.
+
 ## Inside a block
 
 - Header row: version (`text-base font-semibold`) + optional `latest`

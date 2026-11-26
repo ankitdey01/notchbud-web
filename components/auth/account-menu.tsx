@@ -106,10 +106,10 @@ export function AccountMenu() {
           "t-dropdown",
           open && "is-open",
           closing && "is-closing",
-          // Kumo shadow-borders: ring + shadow, never border.
+          // design.md: quiet surfaces stay borderless — shared fill, no ring, no shadow.
           // Kumo concentric-border-radius: outer 20px = inner 12px + 8px padding.
           // Kumo collapse-content-size: fixed w-64 shell so content never squeezes.
-          "absolute right-0 top-full z-50 mt-2 w-64 rounded-[20px] bg-white p-2 text-left shadow-[0_8px_30px_rgba(0,55,115,0.18)] ring-1 ring-kumo-line",
+          "absolute right-0 top-full z-50 mt-2 w-64 rounded-[20px] bg-slate-500/10 p-2 text-left",
           "max-h-[min(24rem,_calc(100dvh-5rem))] overflow-y-auto overscroll-contain"
         )}
       >
@@ -149,7 +149,7 @@ export function AccountMenu() {
             // Kumo text-spacing: px-3 py-2.5 (horizontal > vertical).
             // Kumo icon-alignment: 14px icon with 14px label, first-line centered.
             // Hover is immediate â€” no color transition.
-            className="focus-ring pressable flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-kumo-tint hover:text-brand-950"
+            className="focus-ring pressable flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm text-slate-600 hover:bg-white/70 hover:text-brand-950"
           >
             <LogOut className="size-3.5 shrink-0" size={14} strokeWidth={2} absoluteStrokeWidth />
             Sign out
